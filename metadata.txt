@@ -1,0 +1,34 @@
+# Mandatory items:
+
+
+[general]
+name=Standard Distance
+qgisMinimumVersion=3.00
+qgisMaximumVersion=3.99
+description=Standard Distance
+about=Standard Distance measures the degree to which features are concentrated or dispersed around the features (point or polygon features). Can be launched for all features of the layer, or grouped by a field value. Also can be use a optional weight field parameter. The Plugin create a new layer with a circle polygon representing the Standard Distance. The radius is equal to the standard distance of the features, and its centered in his mean center coordinates.  
+version=1.0.0
+author=Guillem Herrera
+email=guillem.herrera@gmail.com
+
+# end of mandatory metadata
+
+# Optional items:
+
+# Uncomment the following line and add your changelog entries:
+changelog=1.0.0: 
+	- First release of Standard Distance Plugin. Enjoy!
+	
+# tags are comma separated with spaces allowed
+tags= standard distance, vector analysis, standard, distance
+
+homepage=https://root676.github.io
+tracker=https://github.com/root676/QNEAT3/issues
+repository=https://github.com/root676/QNEAT3
+icon=icon_StandardDistance.svg
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version
+deprecated=False
+

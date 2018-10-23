@@ -13,7 +13,8 @@ from qgis.core import (QgsProcessing,
                        QgsField,
                        QgsFeature,
                        QgsGeometry,
-                       QgsPointXY)
+                       QgsPointXY,
+                       QgsPoint)
 import os
 #import processing
 
@@ -22,7 +23,6 @@ from StandardDistance.SDUtils import *
 pluginPath = os.path.split(os.path.dirname(__file__))[0]
 
 class StandardDistance(QgsProcessingAlgorithm):
-    
     INPUT = 'INPUT'
     GBYFIELD = 'GBYFIELD'
     WFIELD = 'WFIELD'
@@ -63,22 +63,25 @@ class StandardDistance(QgsProcessingAlgorithm):
     def initAlgorithm(self, config=None):
     
         self.addParameter(QgsProcessingParameterFeatureSource(self.INPUT,
-												              self.tr('Input layer'),
-												              [QgsProcessing.TypeVectorPoint, QgsProcessing.TypeVectorPolygon]))
+                                                              self.tr('Input layer'),
+                                                              [QgsProcessing.TypeVectorPoint,
+                                                               QgsProcessing.TypeVectorPolygon]))
         self.addParameter(QgsProcessingParameterField(self.GBYFIELD,
-									                  self.tr('Group_by field'), 
-									                  parentLayerParameterName=self.INPUT, type=QgsProcessingParameterField.String,optional=True))
+                                                      self.tr('Group_by field'),
+                                                      parentLayerParameterName=self.INPUT,
+                                                      type=QgsProcessingParameterField.String, optional=True))
         self.addParameter(QgsProcessingParameterField(self.WFIELD,
-									                  self.tr('Weight field'), 
-									                  parentLayerParameterName=self.INPUT, type=QgsProcessingParameterField.Numeric,optional=True))
+                                                      self.tr('Weight field'),
+                                                      parentLayerParameterName=self.INPUT,
+                                                      type=QgsProcessingParameterField.Numeric, optional=True))
         self.addParameter(QgsProcessingParameterFeatureSink(self.OUTPUT,
-        									                self.tr('Output layer')))
+                                                            self.tr('Output layer')))
 
     def processAlgorithm(self, parameters, context, feedback):
-    
-        source = self.parameterAsSource(parameters,self.INPUT,context)
-        gByField = self.parameterAsString(parameters,self.GBYFIELD,context)
-        wField = self.parameterAsString(parameters,self.WFIELD,context)
+
+        source = self.parameterAsSource(parameters, self.INPUT, context)
+        gByField = self.parameterAsString(parameters, self.GBYFIELD, context)
+        wField = self.parameterAsString(parameters, self.WFIELD, context)
       
         groupb = -1
         if gByField:
@@ -89,7 +92,7 @@ class StandardDistance(QgsProcessingAlgorithm):
         
         outFields = QgsFields()
         if groupb > -1:	
-        	outFields.append(QgsField("Category", QVariant.String))
+            outFields.append(QgsField("Category", QVariant.String))
         outFields.append(QgsField("X", QVariant.Double))
         outFields.append(QgsField("Y",  QVariant.Double))
         outFields.append(QgsField("Standard_Distance", QVariant.Double))
@@ -99,14 +102,14 @@ class StandardDistance(QgsProcessingAlgorithm):
             self.OUTPUT,
             context,
             outFields,
-            source.wkbType(),
+            3,
             source.sourceCrs()
         )
         
         if groupb < 0 and weight < 0:
             r = StandDistance(source)
             fet = QgsFeature()
-            fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(r[0],r[1])).buffer(r[2],25))
+            fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(r[0], r[1])).buffer(r[2], 25))
             fet.setAttributes([r[0], r[1], r[2]])
             sink.addFeature(fet, QgsFeatureSink.FastInsert)
 
@@ -115,14 +118,14 @@ class StandardDistance(QgsProcessingAlgorithm):
         
             for k, v in distResult.items():
                 fet = QgsFeature()
-                fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(v[0],v[1])).buffer(v[2],25))
+                fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(v[0], v[1])).buffer(v[2], 25))
                 fet.setAttributes([k, v[0], v[1], v[2]])
                 sink.addFeature(fet, QgsFeatureSink.FastInsert)
 
         if groupb < 0 and weight > 0:
             w = W_StandDistance(source,weight)
             fet = QgsFeature()
-            fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(w[0],w[1])).buffer(w[2],25))
+            fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(w[0], w[1])).buffer(w[2], 25))
             fet.setAttributes([w[0], w[1], w[2]])
             sink.addFeature(fet, QgsFeatureSink.FastInsert)
 
@@ -131,11 +134,11 @@ class StandardDistance(QgsProcessingAlgorithm):
         
             for k, v in distResult.items():
                 fet = QgsFeature()
-                fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(v[0],v[1])).buffer(v[2],25))
+                fet.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(v[0], v[1])).buffer(v[2], 25))
                 fet.setAttributes([k, v[0], v[1], v[2]])
                 sink.addFeature(fet, QgsFeatureSink.FastInsert)
         
-        return {self.OUTPUT:dest_id}
+        return {self.OUTPUT: dest_id}
         
         
         

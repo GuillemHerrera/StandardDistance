@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- QNEAT3 - Qgis Network Analysis Toolbox 3
- A QGIS processing provider for network analysis
- 
- Qneat3Provider.py
- 
--------------------
-        begin                : 2018-01-15
-        copyright            : (C) 2018 by Clemens Raffler
-        email                : clemens.raffler@gmail.com
  ***************************************************************************/
 
 /***************************************************************************

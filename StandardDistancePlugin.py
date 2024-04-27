@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 ***************************************************************************
-    Qneat3Plugin.py
-    ---------------------
-    
-    Date                 : January 2018
-    Copyright            : (C) 2018 by Clemens Raffler
-    Email                : clemens dot raffler at gmail dot com
 ***************************************************************************
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *

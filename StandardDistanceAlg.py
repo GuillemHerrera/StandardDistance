@@ -14,7 +14,7 @@ from qgis.core import (QgsProcessing,
                        QgsFeature,
                        QgsGeometry,
                        QgsPointXY,
-                       QgsPoint)
+                       QgsWkbTypes)
 import os
 #import processing
 
@@ -102,7 +102,7 @@ class StandardDistance(QgsProcessingAlgorithm):
             self.OUTPUT,
             context,
             outFields,
-            3,
+            QgsWkbTypes.Polygon,
             source.sourceCrs()
         )
         

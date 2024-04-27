@@ -3,11 +3,11 @@
 
 [general]
 name=Standard Distance
-qgisMinimumVersion=3.00
+qgisMinimumVersion=3.30
 qgisMaximumVersion=3.99
 description=Calculate and representate the position standard deviation of a set of features. 
 about=Standard Distance measures the degree to which features are concentrated or dispersed around the features (point or polygon features). Can be launched for all features of the layer, or grouped by a field value. Also can be use a optional weight field parameter. The Plugin create a new layer with a circle polygon representing the Standard Distance. The radius is equal to the standard distance of the features, and its centered in his mean center coordinates. There are no external library dependencies.  
-version=1.0.1
+version=1.0.3
 author=Guillem Herrera
 email=guillem.herrera@gmail.com
 
@@ -18,6 +18,8 @@ email=guillem.herrera@gmail.com
 # Uncomment the following line and add your changelog entries:
 
 changelog=
+1.0.2: - Update to 3.30 qgis version requeriments. 
+
 1.0.1: - Fix issues with point layer sources.
 
 1.0.0: - First release of Standard Distance Plugin. Enjoy!
